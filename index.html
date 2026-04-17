@@ -151,6 +151,32 @@
     .tnp-body { font-size: 14px; color: #333; line-height: 1.75; }
   </style>
 
+  <script>
+    (function () {
+      function hideRSVP() {
+        var input = document.getElementById('name');
+        if (!input) return false;
+        var el = input;
+        var root = document.getElementById('root');
+        while (el && el.parentElement && el.parentElement !== root) {
+          el = el.parentElement;
+        }
+        if (el && el !== root) {
+          el.style.display = 'none';
+        }
+        // Hide nav links with text "RSVP"
+        document.querySelectorAll('a, button, li').forEach(function (node) {
+          if (node.textContent.trim() === 'RSVP') node.style.display = 'none';
+        });
+        return !!input;
+      }
+      var observer = new MutationObserver(function () {
+        if (hideRSVP()) observer.disconnect();
+      });
+      observer.observe(document.body, { childList: true, subtree: true });
+    })();
+  </script>
+
   <button id="tnp-btn" onclick="document.getElementById('tnp-overlay').classList.add('open')">
     📋 行前通知
   </button>
