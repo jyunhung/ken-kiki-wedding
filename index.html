@@ -176,6 +176,12 @@
         if (hideRSVP()) observer.disconnect();
       });
       observer.observe(document.body, { childList: true, subtree: true });
+      // Auto-open the notification panel on load
+      window.addEventListener('load', function () {
+        setTimeout(function () {
+          document.getElementById('tnp-overlay').classList.add('open');
+        }, 800);
+      });
     })();
   </script>
 
