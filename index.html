@@ -12,5 +12,204 @@
   </head>
   <body>
     <div id="root"></div>
+  <style>
+    #tnp-btn {
+      position: fixed;
+      bottom: 28px;
+      right: 28px;
+      z-index: 9999;
+      background: #1a6b6b;
+      color: #fff;
+      border: none;
+      border-radius: 999px;
+      padding: 13px 20px;
+      font-size: 14px;
+      font-family: 'Noto Sans TC', sans-serif;
+      cursor: pointer;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.28);
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      letter-spacing: 0.5px;
+      transition: opacity 0.2s, transform 0.2s;
+    }
+    #tnp-btn:hover { opacity: 0.88; transform: translateY(-2px); }
+    #tnp-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.52);
+      z-index: 10000;
+      justify-content: center;
+      align-items: flex-end;
+    }
+    #tnp-overlay.open { display: flex; }
+    @media(min-width: 640px) {
+      #tnp-overlay { align-items: center; padding: 16px; }
+      #tnp-panel { border-radius: 20px !important; max-height: 85vh !important; }
+    }
+    #tnp-panel {
+      background: #fff;
+      border-radius: 20px 20px 0 0;
+      max-width: 520px;
+      width: 100%;
+      max-height: 90vh;
+      overflow-y: auto;
+      padding: 32px 24px 44px;
+      position: relative;
+      font-family: 'Noto Sans TC', 'Inter', sans-serif;
+    }
+    #tnp-close {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      background: #f0f0f0;
+      border: none;
+      border-radius: 50%;
+      width: 32px;
+      height: 32px;
+      font-size: 16px;
+      cursor: pointer;
+      color: #555;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      line-height: 1;
+    }
+    .tnp-title {
+      font-size: 20px;
+      font-weight: 700;
+      color: #1a1a1a;
+      margin: 0 0 24px;
+      letter-spacing: 1px;
+    }
+    .tnp-sec {
+      margin-bottom: 24px;
+      padding-bottom: 24px;
+      border-bottom: 1px solid #f0f0f0;
+    }
+    .tnp-sec:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+    .tnp-sec-title {
+      font-size: 12px;
+      font-weight: 700;
+      color: #1a6b6b;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      margin: 0 0 12px;
+    }
+    .tnp-row {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 5px;
+      font-size: 14px;
+      color: #333;
+      line-height: 1.6;
+    }
+    .tnp-lbl { min-width: 44px; color: #999; font-size: 13px; }
+    .tnp-box {
+      background: #f5fbfb;
+      border-left: 3px solid #1a6b6b;
+      padding: 10px 14px;
+      border-radius: 0 8px 8px 0;
+      font-size: 14px;
+      color: #333;
+      line-height: 1.7;
+    }
+    .tnp-tag {
+      display: inline-block;
+      background: #fff3e0;
+      color: #c45600;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 2px 9px;
+      border-radius: 999px;
+      margin-bottom: 8px;
+    }
+    .tnp-sub {
+      font-size: 12px;
+      font-weight: 600;
+      color: #999;
+      margin: 14px 0 6px;
+    }
+    .tnp-tl { list-style: none; margin: 0; padding: 0; }
+    .tnp-tl li {
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+      margin-bottom: 9px;
+      font-size: 14px;
+      color: #333;
+    }
+    .tnp-tl li:last-child { margin-bottom: 0; }
+    .tnp-t {
+      min-width: 44px;
+      font-weight: 700;
+      color: #1a6b6b;
+      font-size: 13px;
+      padding-top: 1px;
+    }
+    .tnp-body { font-size: 14px; color: #333; line-height: 1.75; }
+  </style>
+
+  <button id="tnp-btn" onclick="document.getElementById('tnp-overlay').classList.add('open')">
+    📋 行前通知
+  </button>
+
+  <div id="tnp-overlay" onclick="if(event.target===this)this.classList.remove('open')">
+    <div id="tnp-panel">
+      <button id="tnp-close" onclick="document.getElementById('tnp-overlay').classList.remove('open')">✕</button>
+      <h2 class="tnp-title">行前通知</h2>
+
+      <div class="tnp-sec">
+        <div class="tnp-sec-title">📅 活動資訊</div>
+        <div class="tnp-row"><span class="tnp-lbl">日期</span><span>2026 年 4 月 25 日（六）</span></div>
+        <div class="tnp-row"><span class="tnp-lbl">地點</span><span>日日旅海 Ocean Day by Day</span></div>
+        <div class="tnp-row"><span class="tnp-lbl">地址</span><span>屏東縣滿州鄉興海路33號</span></div>
+      </div>
+
+      <div class="tnp-sec">
+        <div class="tnp-sec-title">🚌 前往交通</div>
+        <div class="tnp-tag">已預約接駁車</div>
+        <div class="tnp-box">
+          出發：13:30 PM（拜託提早一點點抵達！）<br>
+          集合：彩虹市集 1 樓（左營高鐵 2 號出口）<br>
+          聯絡人：呂姍 0963-587-233
+        </div>
+        <div class="tnp-sub">自行前往</div>
+        <div class="tnp-body">
+          🚗 開車請導航至上方地址，會場有免費停車場<br>
+          🚆 左營高鐵站搭墾丁快線至恆春轉運站，再轉計程車（約 20 分鐘）
+        </div>
+      </div>
+
+      <div class="tnp-sec">
+        <div class="tnp-sec-title">⏰ 活動流程</div>
+        <ul class="tnp-tl">
+          <li><span class="tnp-t">16:00</span><span>迎賓入場 Guest Arrival</span></li>
+          <li><span class="tnp-t">16:30</span><span>草地證婚 Wedding Ceremony</span></li>
+          <li><span class="tnp-t">17:30</span><span>Sunset Bar</span></li>
+          <li><span class="tnp-t">18:00</span><span>晚宴迎賓 Dinner Celebration</span></li>
+          <li><span class="tnp-t">20:30</span><span>After Party</span></li>
+        </ul>
+      </div>
+
+      <div class="tnp-sec">
+        <div class="tnp-sec-title">🚖 回程提醒</div>
+        <div class="tnp-body">
+          會場距離住宿有段距離，建議活動尾聲提前叫車。<br>
+          如需叫車接送管道，歡迎聯繫新人。
+        </div>
+      </div>
+
+      <div class="tnp-sec">
+        <div class="tnp-sec-title">🌅 隔天回程</div>
+        <div class="tnp-body">
+          搭計程車至恆春轉運站（約 20 分鐘）<br>
+          再搭墾丁快線返高鐵左營站（約 2 小時）<br>
+          每 30 分鐘一班，單程 NT$401
+        </div>
+      </div>
+    </div>
+  </div>
   </body>
 </html>
