@@ -154,21 +154,23 @@
   <script>
     (function () {
       function hideRSVP() {
-        var input = document.getElementById('name');
-        if (!input) return false;
-        var el = input;
-        var root = document.getElementById('root');
-        while (el && el.parentElement && el.parentElement !== root) {
+        // Only the RSVP section contains a <form>, so this is a unique identifier
+        var form = document.querySelector('form');
+        if (!form) return false;
+        var el = form;
+        while (el && el !== document.body) {
+          var cl = el.className || '';
+          if (typeof cl === 'string' && cl.includes('py-24')) {
+            el.style.display = 'none';
+            break;
+          }
           el = el.parentElement;
-        }
-        if (el && el !== root) {
-          el.style.display = 'none';
         }
         // Hide nav links with text "RSVP"
         document.querySelectorAll('a, button, li').forEach(function (node) {
           if (node.textContent.trim() === 'RSVP') node.style.display = 'none';
         });
-        return !!input;
+        return true;
       }
       var observer = new MutationObserver(function () {
         if (hideRSVP()) observer.disconnect();
